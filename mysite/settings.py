@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+#jiage
 # Application definition
 
 INSTALLED_APPS = (
