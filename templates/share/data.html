@@ -72,9 +72,9 @@
        <div id="datamain" style="color:blue" onclick="document.all.child7.style.display=(document.all.child7.style.display =='none')?'':'none'" >
            煤矿装备</div>
        <div id="child7" style="display:none">
-           {% if group_list %}
-           {% for group in group_list %}
-           <a href="#">{{ group.groupname }}</a><br>
+           {% if equipment_list %}
+           {% for equipment in equipment_list %}
+           <a href="#">{{ equipment.name }}</a><br>
            {% endfor %}
            {% else %}
            <a href="#">No data</a><br>
@@ -84,7 +84,7 @@
     <div id="leftbar">
         <form action="{% url 'query' %}" method="POST">
             {% csrf_token %}
-            <div>煤矿名称<input type="text" name="coalname"></div>
+            <div>煤矿名称<input type="text" name="companyname"></div>
             <div>事故类型</div>
             <label><input name="accidenttype1" type="checkbox" value="瓦斯事故" />瓦斯事故 </label>
             <label><input name="accidenttype2" type="checkbox" value="顶板事故" />顶板事故 </label>
@@ -99,7 +99,7 @@
             <p>小于</p><input name="lessdeaths" type="text"/>
             <div>时间范围</div>
             <p>从</p><input name="begin" type="date"/>
-            <p>到</p><input name="begin" type="date"/>
+            <p>到</p><input name="end" type="date"/>
             <div><input name="sub" type="submit" value="确定"/></div>
         </form>
     </div>
