@@ -1,0 +1,53 @@
+{% extends "share/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<div id="maincontent">
+<div id="map">
+                <div id="popup" class="ol-popup">
+                     <div id="popup-content">
+                      </div>
+                  <button id="popup-closer" class="ol-popup-closer">X</button>
+                     <div id="fname">
+                 	  </div>
+            </div> 
+</div>
+</div>
+<div id="sidebar">
+       <div id="info" class="top"></div>
+       <div class="middle">
+         <form action="{% url 'tolalo' %}" method="POST">
+            {% csrf_token %}
+           <input type="text" name="location">
+           <input type="submit" value="确定">
+           </form>
+         <form action="{% url 'tokml' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="latitude" value="{{ latitude }}">
+            <input type="text" name="longitude" value="{{ longitude }}">
+            <input type="submit" value="确定">
+         </form>
+       </div>
+       <div class="buttom">
+          <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{uf.as_p}}
+            <input type="submit" value="上传">
+          </form>
+       </div>
+    </div>
+<div class="news">
+      <div class="accident-news">
+            <p>事故通报</p>
+            <p>......</p>
+          </div>
+          <div class="accident-knowledge">
+            <p>事故知识</p>
+            <p>......</p>
+          </div>
+
+          <div class="accident-low">
+            <p>事故法律</p>
+            <p>......</p>
+          </div>
+      </div>
+{% endblock %}

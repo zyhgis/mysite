@@ -1,0 +1,18 @@
+<kml xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <name>first</name>
+    <decription>world</decription>
+    <Style>
+      <IconStyle id="mystyle">
+        <scale>1.0</scale>
+        <Icon>
+          <href>/static/image/pointstyle.png</href>
+        </Icon>
+      </IconStyle>
+      <styleUrl>#IconStyle00</styleUrl>
+    </Style>
+    <Point>
+      <coordinates>'116.395645,39.9299857,0</coordinates>
+    </Point>
+  </Placemark>
+</kml>

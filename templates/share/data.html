@@ -1,0 +1,21 @@
+{% extends "share/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<div id="main">
+    <div id="center">
+        
+    </div>
+    <div id="leftbar">
+        <form action="{% url 'query' %}" method="POST">
+            {% csrf_token %}
+            <div>煤矿名称<input type="text" name="coalname"></div>
+            <div>事故类型<input type="checkbox"></div>
+        </form>
+    </div>
+</div>
+    <div id="sidebar">
+       <div id="info" class="top"></div>
+       <div class="middle"></div>
+       <div class="buttom"></div>
+    </div>
+{% endblock %}
