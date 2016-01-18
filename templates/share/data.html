@@ -3,13 +3,104 @@
 {% block content %}
 <div id="main">
     <div id="center">
-        
+       <div id="datamain" style="color:blue" onclick="document.all.child1.style.display=(document.all.child1.style.display =='none')?'':'none'" >
+           煤矿集团</div>
+       <div id="child1" style="display:none">
+           {% if group_list %}
+           {% for group in group_list %}
+           <a href="#">{{ group.groupname }}</a><br>
+           {% endfor %}
+           {% else %}
+           <a href="#">No data</a><br>
+           {% endif %}
+       </div>
+       <div id="datamain" style="color:blue" onclick="document.all.child2.style.display=(document.all.child2.style.display =='none')?'':'none'" >
+           煤矿企业</div>
+       <div id="child2" style="display:none">
+           {% if company_list %}
+           {% for company in company_list %}
+           <a href="#">{{ company.companyname }}</a><br>
+           {% endfor %}
+           {% else %}
+           <a href="#">No data</a><br>
+           {% endif %}
+       </div>
+       <div id="datamain" style="color:blue" onclick="document.all.child3.style.display=(document.all.child3.style.display =='none')?'':'none'" >
+           煤矿事故</div>
+       <div id="child3" style="display:none">
+           {% if accident_list %}
+           {% for accident in accident_list %}
+           <a href="#">{{ accident.companyname }}</a><br>
+           {% endfor %}
+           {% else %}
+           <a href="#">No data</a><br>
+           {% endif %}
+       </div>
+       <div id="datamain" style="color:blue" onclick="document.all.child4.style.display=(document.all.child4.style.display =='none')?'':'none'" >
+           煤矿工人</div>
+       <div id="child4" style="display:none">
+           {% if worker_list %}
+           {% for worker in worker_list %}
+           <a href="#">{{ worker.companyname }}</a><br>
+           {% endfor %}
+           {% else %}
+           <a href="#">No data</a><br>
+           {% endif %}
+       </div>
+       <div id="datamain" style="color:blue" onclick="document.all.child5.style.display=(document.all.child5.style.display =='none')?'':'none'" >
+           井下工人</div>
+       <div id="child5" style="display:none">
+           {% if timeworker_list %}
+           {% for timeworker in timeworker_list %}
+           <a href="#">{{ timeworker.companyname }}</a><br>
+           {% endfor %}
+           {% else %}
+           <a href="#">No data</a><br>
+           {% endif %}
+       </div>
+       <div id="datamain" style="color:blue" onclick="document.all.child6.style.display=(document.all.child6.style.display =='none')?'':'none'" >
+           井下参数</div>
+       <div id="child6" style="display:none">
+           {% if timeindex_list %}
+           {% for timeindex in timeindex_list %}
+           <a href="#">{{ timeindex.companyname }}</a><br>
+           {% endfor %}
+           {% else %}
+           <a href="#">No data</a><br>
+           {% endif %}
+       </div>
+       <div id="datamain" style="color:blue" onclick="document.all.child7.style.display=(document.all.child7.style.display =='none')?'':'none'" >
+           煤矿装备</div>
+       <div id="child7" style="display:none">
+           {% if group_list %}
+           {% for group in group_list %}
+           <a href="#">{{ group.groupname }}</a><br>
+           {% endfor %}
+           {% else %}
+           <a href="#">No data</a><br>
+           {% endif %}
+       </div>
     </div>
     <div id="leftbar">
         <form action="{% url 'query' %}" method="POST">
             {% csrf_token %}
             <div>煤矿名称<input type="text" name="coalname"></div>
-            <div>事故类型<input type="checkbox"></div>
+            <div>事故类型</div>
+            <label><input name="accidenttype1" type="checkbox" value="瓦斯事故" />瓦斯事故 </label>
+            <label><input name="accidenttype2" type="checkbox" value="顶板事故" />顶板事故 </label>
+            <label><input name="accidenttype3" type="checkbox" value="放炮事故" />放炮事故 </label>
+            <label><input name="accidenttype4" type="checkbox" value="机电事故" />机电事故 </label>
+            <label><input name="accidenttype5" type="checkbox" value="水灾事故" />水灾事故 </label>
+            <label><input name="accidenttype6" type="checkbox" value="火灾事故" />火灾事故 </label>
+            <label><input name="accidenttype7" type="checkbox" value="运输事故" />运输事故 </label>
+            <label><input name="accidenttype7" type="checkbox" value="其它事故" />其它事故 </label>
+            <div>死亡人数</div>
+            <p>大于</p><input name="moredeaths" type="text"/>
+            <p>小于</p><input name="lessdeaths" type="text"/>
+            <div>时间范围</div>
+            <p>从</p><input name="begin" type="date"/>
+            <p>到</p><input name="begin" type="date"/>
+            <div><input name="sub" type="submit" value="确定"/></div>
         </form>
     </div>
 </div>
