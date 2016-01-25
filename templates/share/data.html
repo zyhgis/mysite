@@ -3,97 +3,118 @@
 {% block content %}
 <div id="main">
     <div id="center">
+       <div id="datamain" style="color:blue">
+           <form action="{% url 'output' %}" method="POST">
+                {% csrf_token %}
+           <input type="submit" value="导出"><label><input name="database1" type="checkbox" value="group" onclick="if(this.checked==true) { checkAll('database'); } else { clearAll('database'); }"/>全选</label>
+       <input name="database1" type="checkbox" value="group" />
        <div id="datamain" style="color:blue" onclick="document.all.child1.style.display=(document.all.child1.style.display =='none')?'':'none'" >
-           煤矿集团</div>
+          煤矿集团</div>
        <div id="child1" style="display:none">
            {% if group_list %}
            {% for group in group_list %}
+           <input name="group{{ forloop.counter }}" type="hidden" value="{{ group.groupname }}" />
            <a href="#">{{ group.groupname }}</a><br>
            {% endfor %}
            {% else %}
            <a href="#">No data</a><br>
            {% endif %}
        </div>
+       <input name="database2" type="checkbox" value="company" />
        <div id="datamain" style="color:blue" onclick="document.all.child2.style.display=(document.all.child2.style.display =='none')?'':'none'" >
            煤矿企业</div>
        <div id="child2" style="display:none">
            {% if company_list %}
            {% for company in company_list %}
+           <input name="company{{ forloop.counter }}" type="hidden" value="{{ company.companyname }}" />
            <a href="#">{{ company.companyname }}</a><br>
            {% endfor %}
            {% else %}
            <a href="#">No data</a><br>
            {% endif %}
        </div>
+       <input name="database3" type="checkbox" value="accident" />
        <div id="datamain" style="color:blue" onclick="document.all.child3.style.display=(document.all.child3.style.display =='none')?'':'none'" >
            煤矿事故</div>
        <div id="child3" style="display:none">
            {% if accident_list %}
            {% for accident in accident_list %}
-           <a href="#">{{ accident.companyname }}</a><br>
+           <input name="accident{{ forloop.counter }}" type="hidden" value="{{ accident.accidentname }}" />
+           <a href="#">{{ accident.accidentname }}</a><br>
            {% endfor %}
            {% else %}
            <a href="#">No data</a><br>
            {% endif %}
        </div>
+       <input name="database4" type="checkbox" value="worker" />
        <div id="datamain" style="color:blue" onclick="document.all.child4.style.display=(document.all.child4.style.display =='none')?'':'none'" >
            煤矿工人</div>
        <div id="child4" style="display:none">
            {% if worker_list %}
            {% for worker in worker_list %}
+           <input name="worker{{ forloop.counter }}" type="hidden" value="{{ worker.ID }}" />
            <a href="#">{{ worker.companyname }}</a><br>
            {% endfor %}
            {% else %}
            <a href="#">No data</a><br>
            {% endif %}
        </div>
+       <input name="database5" type="checkbox" value="timeworker" />
        <div id="datamain" style="color:blue" onclick="document.all.child5.style.display=(document.all.child5.style.display =='none')?'':'none'" >
            井下工人</div>
        <div id="child5" style="display:none">
            {% if timeworker_list %}
            {% for timeworker in timeworker_list %}
+           <input name="timeworker{{ forloop.counter }}" type="hidden" value="{{ timeworker.ID }}" />
            <a href="#">{{ timeworker.companyname }}</a><br>
            {% endfor %}
            {% else %}
            <a href="#">No data</a><br>
            {% endif %}
        </div>
+       <input name="database6" type="checkbox" value="timeindex" />
        <div id="datamain" style="color:blue" onclick="document.all.child6.style.display=(document.all.child6.style.display =='none')?'':'none'" >
            井下参数</div>
        <div id="child6" style="display:none">
            {% if timeindex_list %}
            {% for timeindex in timeindex_list %}
+           <input name="timeindex{{ forloop.counter }}" type="hidden" value="{{ timeindex.companyname }}" />
            <a href="#">{{ timeindex.companyname }}</a><br>
            {% endfor %}
            {% else %}
            <a href="#">No data</a><br>
            {% endif %}
        </div>
+       <input name="database7" type="checkbox" value="equipment" />
        <div id="datamain" style="color:blue" onclick="document.all.child7.style.display=(document.all.child7.style.display =='none')?'':'none'" >
            煤矿装备</div>
        <div id="child7" style="display:none">
            {% if equipment_list %}
            {% for equipment in equipment_list %}
+           <input name="equipment{{ forloop.counter }}" type="hidden" value="{{ equipment.name }}"/>
            <a href="#">{{ equipment.name }}</a><br>
            {% endfor %}
            {% else %}
            <a href="#">No data</a><br>
            {% endif %}
        </div>
+       </form>
+           </div>
     </div>
     <div id="leftbar">
         <form action="{% url 'query' %}" method="POST">
             {% csrf_token %}
             <div>煤矿名称<input type="text" name="companyname"></div>
             <div>事故类型</div>
-            <label><input name="accidenttype1" type="checkbox" value="瓦斯事故" />瓦斯事故 </label>
-            <label><input name="accidenttype2" type="checkbox" value="顶板事故" />顶板事故 </label>
-            <label><input name="accidenttype3" type="checkbox" value="放炮事故" />放炮事故 </label>
-            <label><input name="accidenttype4" type="checkbox" value="机电事故" />机电事故 </label>
-            <label><input name="accidenttype5" type="checkbox" value="水灾事故" />水灾事故 </label>
-            <label><input name="accidenttype6" type="checkbox" value="火灾事故" />火灾事故 </label>
-            <label><input name="accidenttype7" type="checkbox" value="运输事故" />运输事故 </label>
-            <label><input name="accidenttype7" type="checkbox" value="其它事故" />其它事故 </label>
+            <label><input name="allaccidenttype" type="checkbox" value="all" onclick="if(this.checked==true) { checkAll('accidenttype'); } else { clearAll('accidenttype'); }"/>全选</label>
+            <label><input name="accidenttype1" type="checkbox" value="gas" />瓦斯事故</label>
+            <label><input name="accidenttype2" type="checkbox" value="roof" />顶板事故</label>
+            <label><input name="accidenttype3" type="checkbox" value="shoot" />放炮事故</label>
+            <label><input name="accidenttype4" type="checkbox" value="elec" />机电事故</label>
+            <label><input name="accidenttype5" type="checkbox" value="flood" />水灾事故</label>
+            <label><input name="accidenttype6" type="checkbox" value="fire" />火灾事故</label>
+            <label><input name="accidenttype7" type="checkbox" value="traf" />运输事故</label>
+            <label><input name="accidenttype8" type="checkbox" value="other" />其它事故</label>
             <div>死亡人数</div>
             <p>大于</p><input name="moredeaths" type="text"/>
             <p>小于</p><input name="lessdeaths" type="text"/>
@@ -105,8 +126,74 @@
     </div>
 </div>
     <div id="sidebar">
-       <div id="info" class="top"></div>
-       <div class="middle"></div>
-       <div class="buttom"></div>
+       <div id="info" class="top">
+           <p>最新事故</p>
+           {% if last_accident_list %}
+           {% for accident in last_accident_list %}
+           <p>{{ accident.accidentname }}</p>
+           {% endfor %}
+           {% else %}
+           <p>数据获取失败</p>
+           {% endif %}
+       </div>
+       <div class="middle">
+           <p>最新数据</p>
+       </div>
+       <div class="buttom">
+           <p>最热数据</p>
+       </div>
     </div>
+    <script type="text/javascript">
+    function clearAll(name)
+    {
+        var el = document.getElementsByTagName('input');
+        var len = el.length;
+        for(var i=0; i<len; i++)
+        {
+            if (el[i].type=="checkbox")
+            {
+                if(name=="accidenttype"){
+                if (el[i].name.substring(0,8)=="accident")
+                {
+                el[i].checked = false;
+                }
+                }
+                if(name="database"){
+                if (el[i].name.substring(0,8)=="database")
+                {
+                el[i].checked = false;
+                }
+                }
+            }
+        }
+    }
+    function checkAll(name)
+    {
+        var el = document.getElementsByTagName('input');
+        var len = el.length;
+        for(var i=1; i<len; i++)
+        {
+            alert("first_if")
+            if (el[i].type=="checkbox")
+            {
+                alert(el[i].name.substring(0,8))
+                if(name=="accidenttype")
+                {
+                    if (el[i].name.substring(0,8)=="accident")
+                    {
+                        alert("third_if")
+                        el[i].checked = true;
+                    }
+                }
+                if(name=="database")
+                {
+                    if (el[i].name.substring(0,8)=="database")
+                    {
+                        el[i].checked = true;
+                    }
+                }
+            }
+        }
+    }
+    </script>
 {% endblock %}

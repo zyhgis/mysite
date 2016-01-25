@@ -1,0 +1,89 @@
+{% extends "share/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<!--<script src="{% static 'js/echarts.min.js' %}" type="text/javascript"></script>-->
+<div id="servicemain">
+<div id="serviceleft" >
+    <div id="selectdiv">
+        <label>请选择图标类型</label><br>
+        <select id="charttype" onchange="javascript:test('mune_x'+this.value)">
+            <option value="1">变化趋势图</option>
+            <option value="2">比例构成图</option>
+        </select>
+        <select id="x1"  style="display:none" >
+            <option value="1">柱状图</option>
+            <option value="2">曲线图</option>
+        </select>
+        <select id="x2"  style="display:none" >
+            <option value="1">饼形图</option>
+            <option value="2">南丁格尔图</option>
+        </select>
+    </div>
+    <div id="timecon">
+        <label>时间范围</label>
+        <select id="timesel">
+            <option value="year">年</option>
+            <option value="mouth">月</option>
+        </select><br>
+        <input type="month"><br>
+        <input type="month">
+    </div>
+    <div id="x">
+        <label>横坐标</label><br>
+        <label><input type="radio" name="xx">年</label><br>
+        <label><input type="radio" name="xx">月</label><br>
+        <label><input type="radio" name="xx">事故类型</label><br>
+        <label><input type="radio" name="xx">事故性质</label><br>
+    </div>
+    <div id="y">
+        <label>纵坐标</label><br>
+        <label><input type="checkbox">经济损失</label><br>
+        <label><input type="checkbox">死亡人数</label><br>
+        <label><input type="checkbox">百万吨死亡率</label><br>
+    </div>
+</div>
+</div>
+<div id="serviceright"></div>
+</div>
+<script type="text/javascript">
+function test(Names){
+    for(var i=1;i<3;i++){
+        var tempname="mune_x"+i
+        var selectname="x"+i
+        if(Names==tempname){
+            sel=document.getElementById(selectname)
+            sel.style.display='';
+        }
+        else{
+            sel=document.getElementById(selectname)
+            sel.style.display='none';
+        }
+    }
+}
+// 基于准备好的dom，初始化echarts实例
+var myChart = echarts.init(document.getElementById('serviceright'));
+var tit="{{ example }}";
+// 指定图表的配置项和数据
+var option = {
+    title: {
+        text: tit
+        },
+    tooltip: {},
+    legend: {
+        data:['销量']
+        },
+    xAxis: {
+        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        },
+    yAxis: {},
+    series: [{
+        name: '销量',
+        type: 'bar',
+        data: [5, 20, 36, 10, 10, 20]
+        }]
+        };
+
+// 使用刚指定的配置项和数据显示图表。
+myChart.setOption(option);
+</script>
+{% endblock %}
