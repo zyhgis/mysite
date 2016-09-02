@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.postgresql_psycopg2',
-        'NAME':'zh',
+        'NAME':'sharedb',
         'USER':'postgres',
-        'PASSWORD':'z',
-        'HOST':'localhost',
-        'POST':'',
+        'PASSWORD':'zyh',
+        'HOST':'127.0.0.1',
+        'POST':'5432',
     }
 }
 

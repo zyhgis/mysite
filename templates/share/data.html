@@ -1,107 +1,11 @@
 {% extends "share/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<div id="main">
-    <div id="center">
-       <div id="datamain" style="color:blue">
-           <form action="{% url 'output' %}" method="POST">
-                {% csrf_token %}
-           <input type="submit" value="导出"><label><input name="database1" type="checkbox" value="group" onclick="if(this.checked==true) { checkAll('database'); } else { clearAll('database'); }"/>全选</label>
-       <input name="database1" type="checkbox" value="group" />
-       <div id="datamain" style="color:blue" onclick="document.all.child1.style.display=(document.all.child1.style.display =='none')?'':'none'" >
-          煤矿集团</div>
-       <div id="child1" style="display:none">
-           {% if group_list %}
-           {% for group in group_list %}
-           <input name="group{{ forloop.counter }}" type="hidden" value="{{ group.groupname }}" />
-           <a href="#">{{ group.groupname }}</a><br>
-           {% endfor %}
-           {% else %}
-           <a href="#">No data</a><br>
-           {% endif %}
-       </div>
-       <input name="database2" type="checkbox" value="company" />
-       <div id="datamain" style="color:blue" onclick="document.all.child2.style.display=(document.all.child2.style.display =='none')?'':'none'" >
-           煤矿企业</div>
-       <div id="child2" style="display:none">
-           {% if company_list %}
-           {% for company in company_list %}
-           <input name="company{{ forloop.counter }}" type="hidden" value="{{ company.companyname }}" />
-           <a href="#">{{ company.companyname }}</a><br>
-           {% endfor %}
-           {% else %}
-           <a href="#">No data</a><br>
-           {% endif %}
-       </div>
-       <input name="database3" type="checkbox" value="accident" />
-       <div id="datamain" style="color:blue" onclick="document.all.child3.style.display=(document.all.child3.style.display =='none')?'':'none'" >
-           煤矿事故</div>
-       <div id="child3" style="display:none">
-           {% if accident_list %}
-           {% for accident in accident_list %}
-           <input name="accident{{ forloop.counter }}" type="hidden" value="{{ accident.accidentname }}" />
-           <a href="#">{{ accident.accidentname }}</a><br>
-           {% endfor %}
-           {% else %}
-           <a href="#">No data</a><br>
-           {% endif %}
-       </div>
-       <input name="database4" type="checkbox" value="worker" />
-       <div id="datamain" style="color:blue" onclick="document.all.child4.style.display=(document.all.child4.style.display =='none')?'':'none'" >
-           煤矿工人</div>
-       <div id="child4" style="display:none">
-           {% if worker_list %}
-           {% for worker in worker_list %}
-           <input name="worker{{ forloop.counter }}" type="hidden" value="{{ worker.ID }}" />
-           <a href="#">{{ worker.companyname }}</a><br>
-           {% endfor %}
-           {% else %}
-           <a href="#">No data</a><br>
-           {% endif %}
-       </div>
-       <input name="database5" type="checkbox" value="timeworker" />
-       <div id="datamain" style="color:blue" onclick="document.all.child5.style.display=(document.all.child5.style.display =='none')?'':'none'" >
-           井下工人</div>
-       <div id="child5" style="display:none">
-           {% if timeworker_list %}
-           {% for timeworker in timeworker_list %}
-           <input name="timeworker{{ forloop.counter }}" type="hidden" value="{{ timeworker.ID }}" />
-           <a href="#">{{ timeworker.companyname }}</a><br>
-           {% endfor %}
-           {% else %}
-           <a href="#">No data</a><br>
-           {% endif %}
-       </div>
-       <input name="database6" type="checkbox" value="timeindex" />
-       <div id="datamain" style="color:blue" onclick="document.all.child6.style.display=(document.all.child6.style.display =='none')?'':'none'" >
-           井下参数</div>
-       <div id="child6" style="display:none">
-           {% if timeindex_list %}
-           {% for timeindex in timeindex_list %}
-           <input name="timeindex{{ forloop.counter }}" type="hidden" value="{{ timeindex.companyname }}" />
-           <a href="#">{{ timeindex.companyname }}</a><br>
-           {% endfor %}
-           {% else %}
-           <a href="#">No data</a><br>
-           {% endif %}
-       </div>
-       <input name="database7" type="checkbox" value="equipment" />
-       <div id="datamain" style="color:blue" onclick="document.all.child7.style.display=(document.all.child7.style.display =='none')?'':'none'" >
-           煤矿装备</div>
-       <div id="child7" style="display:none">
-           {% if equipment_list %}
-           {% for equipment in equipment_list %}
-           <input name="equipment{{ forloop.counter }}" type="hidden" value="{{ equipment.name }}"/>
-           <a href="#">{{ equipment.name }}</a><br>
-           {% endfor %}
-           {% else %}
-           <a href="#">No data</a><br>
-           {% endif %}
-       </div>
-       </form>
-           </div>
-    </div>
-    <div id="leftbar">
+<div id="main" class="row">
+    <div id="leftbar"  class="col-md-2">
+        <div>
+            <p>查询</p>
+        </div>
         <form action="{% url 'query' %}" method="POST">
             {% csrf_token %}
             <div>煤矿名称<input type="text" name="companyname"></div>
@@ -121,11 +25,102 @@
             <div>时间范围</div>
             <p>从</p><input name="begin" type="date"/>
             <p>到</p><input name="end" type="date"/>
-            <div><input name="sub" type="submit" value="确定"/></div>
+            <div><input class="btn btn-primary" name="sub" type="submit" value="确定"/></div>
         </form>
-    </div>
-</div>
-    <div id="sidebar">
+    </div> 
+    <div id="center" class="col-md-8">
+       <div id="datamain" style="color:blue">
+           <form action="{% url 'output' %}" method="POST">
+                {% csrf_token %}
+           <input type="submit" value="导出"><label><input name="database1" type="checkbox" value="group" onclick="if(this.checked==true) { checkAll('database'); } else { clearAll('database'); }"/>全选</label>
+           <input name="database1" type="checkbox" value="group" />
+           <div id="datamain" style="color:blue" onclick="document.all.child1.style.display=(document.all.child1.style.display =='none')?'':'none'" >煤矿集团</div>
+           <div id="child1" style="display:none">
+               {% if group_list %}
+               {% for group in group_list %}
+               <input name="group{{ forloop.counter }}" type="hidden" value="{{ group.groupname }}" />
+               <a href="#">{{ group.groupname }}</a><br>
+               {% endfor %}
+               {% else %}
+               <a href="#">No data</a><br>
+               {% endif %}
+            </div>
+            <input name="database2" type="checkbox" value="company" />
+            <div id="datamain" style="color:blue" onclick="document.all.child2.style.display=(document.all.child2.style.display =='none')?'':'none'" >煤矿企业</div>
+            <div id="child2" style="display:none">
+                {% if company_list %}
+                {% for company in company_list %}
+                <input name="company{{ forloop.counter }}" type="hidden" value="{{ company.companyname }}" />
+                <a href="#">{{ company.companyname }}</a><br>
+                {% endfor %}
+                {% else %}
+                <a href="#">No data</a><br>
+                {% endif %}
+            </div>
+            <input name="database3" type="checkbox" value="accident" />
+            <div id="datamain" style="color:blue" onclick="document.all.child3.style.display=(document.all.child3.style.display =='none')?'':'none'" >煤矿事故</div>
+            <div id="child3" style="display:none">
+                {% if accident_list %}
+                {% for accident in accident_list %}
+                <input name="accident{{ forloop.counter }}" type="hidden" value="{{ accident.accidentname }}" />
+                <a href="#">{{ accident.accidentname }}</a><br>
+                {% endfor %}
+                {% else %}
+                <a href="#">No data</a><br>
+                {% endif %}
+            </div>
+            <input name="database4" type="checkbox" value="worker" />
+            <div id="datamain" style="color:blue" onclick="document.all.child4.style.display=(document.all.child4.style.display =='none')?'':'none'" >煤矿工人</div>
+            <div id="child4" style="display:none">
+                {% if worker_list %}
+                {% for worker in worker_list %}
+                <input name="worker{{ forloop.counter }}" type="hidden" value="{{ worker.ID }}" />
+                <a href="#">{{ worker.companyname }}</a><br>
+                {% endfor %}
+                {% else %}
+                <a href="#">No data</a><br>
+                {% endif %}
+            </div>
+            <input name="database5" type="checkbox" value="timeworker" />
+            <div id="datamain" style="color:blue" onclick="document.all.child5.style.display=(document.all.child5.style.display =='none')?'':'none'" >井下工人</div>
+            <div id="child5" style="display:none">
+                {% if timeworker_list %}
+                {% for timeworker in timeworker_list %}
+                <input name="timeworker{{ forloop.counter }}" type="hidden" value="{{ timeworker.ID }}" />
+                <a href="#">{{ timeworker.companyname }}</a><br>
+                {% endfor %}
+                {% else %}
+                <a href="#">No data</a><br>
+                {% endif %}
+            </div>
+            <input name="database6" type="checkbox" value="timeindex" />
+            <div id="datamain" style="color:blue" onclick="document.all.child6.style.display=(document.all.child6.style.display =='none')?'':'none'" >井下参数</div>
+            <div id="child6" style="display:none">
+                {% if timeindex_list %}
+                {% for timeindex in timeindex_list %}
+                <input name="timeindex{{ forloop.counter }}" type="hidden" value="{{ timeindex.companyname }}" />
+                <a href="#">{{ timeindex.companyname }}</a><br>
+                {% endfor %}
+                {% else %}
+                <a href="#">No data</a><br>
+                {% endif %}
+            </div>
+            <input name="database7" type="checkbox" value="equipment" />
+            <div id="datamain" style="color:blue" onclick="document.all.child7.style.display=(document.all.child7.style.display =='none')?'':'none'" >煤矿装备</div>
+            <div id="child7" style="display:none">
+                {% if equipment_list %}
+                {% for equipment in equipment_list %}
+                <input name="equipment{{ forloop.counter }}" type="hidden" value="{{ equipment.name }}"/>
+                <a href="#">{{ equipment.name }}</a><br>
+                {% endfor %}
+                {% else %}
+                 <a href="#">No data</a><br>
+                {% endif %}
+            </div>
+            </form>
+        </div>
+    </div>  
+    <div id="sidebar"  class="col-md-2">
        <div id="info" class="top">
            <p>最新事故</p>
            {% if last_accident_list %}
@@ -142,6 +137,7 @@
        <div class="buttom">
            <p>最热数据</p>
        </div>
+    </div>
     </div>
     <script type="text/javascript">
     function clearAll(name)

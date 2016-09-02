@@ -1,18 +1,17 @@
 {% extends "share/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<div id="maincontent">
-<div id="map">
-                <div id="popup" class="ol-popup">
-                     <div id="popup-content">
-                      </div>
-                  <button id="popup-closer" class="ol-popup-closer">X</button>
-                     <div id="fname">
-                 	  </div>
-            </div> 
+<div id="maincontent" class="row">
+<div  class="col-md-10">
+  <div id="map">
+    <div id="popup" class="ol-popup">
+      <div id="popup-content"></div>
+      <button id="popup-closer" class="ol-popup-closer">X</button>
+      <div id="fname"></div>
+    </div> 
+  </div>
 </div>
-</div>
-<div id="sidebar">
+<div id="sidebar" class="col-md-2">
        <div id="info" class="top"></div>
        <div class="middle">
          <form action="{% url 'tolalo' %}" method="POST">
@@ -34,8 +33,9 @@
             <input type="submit" value="上传">
           </form>
        </div>
-    </div>
-<div class="news">
+</div>
+</div>
+<!--<div class="news">
       <div class="accident-news">
             <p>事故通报</p>
             <p>......</p>
@@ -49,5 +49,5 @@
             <p>事故法律</p>
             <p>......</p>
           </div>
-      </div>
+      </div>-->
 {% endblock %}

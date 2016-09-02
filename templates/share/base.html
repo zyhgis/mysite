@@ -2,48 +2,57 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-  <title>煤矿事故大数据平台</title>
+  <title>煤矿事故共享平台</title>
   <meta http-equiv="Access-Control-Allow-Origin" content="*">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="screen">
-<link rel="stylesheet" href="http://openlayers.org/en/v3.12.1/css/ol.css" type="text/css">
+  <link rel="stylesheet" href="http://openlayers.org/en/v3.12.1/css/ol.css" type="text/css">
   <link rel="stylesheet" href="{% static 'css/ol3-layerswitcher.css' %}">
   <link rel="stylesheet" href="{% static 'css/mappopup.css' %}">
-   
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 </head>
-
 <body >
   <div id="container">
-       <div id="header">
-      <div id="header1"><h1 >煤矿事故大数据平台</h1></div>
-      <div id="header2">
-         <button id="submit1" class="btn" >登录</button>
-          <button id="submit2" class="btn"onclick="a()" >注册</button>
-      </div>
+    <div id="header">
+      <div class="row headheight">
+        <div  class="col-md-10 headheight"> <h1>煤矿事故共享平台</h1></div>
+        <div  class="col-md-2 headheight">
+          {% if user %}
+          <ul><li><p class="navbar-text">欢迎你&nbsp;&nbsp;<span id="base_name">{{ user.myuser.nickname }}</span></p></li></ul>
+          <ul><li><a href="{% url 'logout' %}">注销</a></li></ul>
+          <ul><li><a href="{% url 'set_password' %}">修改密码</a></li></ul>
+          {% else %}
+          <ul><li><a href="{% url 'signup' %}">注册</a></li></ul>
+          <ul><li><a href="{% url 'login' %}">登录</a></li></ul>
+          {% endif %}
+          </div>
+         </div>
       </div>
       <div class="menu">
-           <ul><li><a  class="hide" href="{% url 'index' %}">首页</a></li></ul>
+           <ul><li><a href="{% url 'index' %}">首页</a></li></ul>
            <ul><li><a href="{% url 'data' %}" target="_blank">数据</a></li></ul>
            <ul><li><a href="{% url 'service' %}" target="_blank">服务</a></li></ul>
-           <ul><li><a href="http://www.igsnrr.ac.cn/" target="_blank">动态</a></li></ul>
+           <ul><li><a href="http://www.igsnrr.ac.cn/" target="_blank">动态</a></li></ul>    
       </div>
-      
-        {% block content %}{% endblock %}
-    
+        {% block content %}{% endblock %}  
     <div class="footer">
       Inspired by：
       <a href="http://www.openlayers.org/" target="_blank">OpenLayers</a> |
       <a href="https://www.djangoproject.com/" target="_blank">Django</a> |
       <a href="http://lbsyun.baidu.com/" target="_blank">Baidu</a> |
+      <a href="http://echarts.baidu.com.cn/index.html" target="_blank">ECharts</a> | |
     </div>
     <div style="padding:10px; text-align:left; ">
       <p>版权所有 中国科学院地理科学与资源研究所资源与环境信息系统国家重点实验室 <a href="http://my.oschina.net/u/2376641/blog" target="_blank">张英慧</a>      Copyright © 2015-2018 <a href="mailto:zyhsdau@163.com">与我联系</a></p>
       
     </div>
   </div>
-  <script type = 'text/javascript' src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+    <script type = 'text/javascript' src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+    <script type = 'text/javascript' src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+   <script type = 'text/javascript' src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
 <script src="http://openlayers.org/en/v3.12.1/build/ol.js"></script>
-	<script src="{% static 'js/ol3-layerswitcher.js' %}" type="text/javascript"></script>   
+<script src="{% static 'js/ol3-layerswitcher.js' %}" type="text/javascript"></script>   
 <script src="{% static 'js/road2.js' %}" type="text/javascript"></script>
 </body>
 </html>

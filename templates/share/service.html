@@ -1,46 +1,50 @@
 {% extends "share/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<!--<script src="{% static 'js/echarts.min.js' %}" type="text/javascript"></script>-->
+<script src="{% static 'js/echarts.min.js' %}" type="text/javascript"></script>
 <div id="servicemain">
 <div id="serviceleft" >
+    <form action="{% url 'datachart' %}" method="POST">
+    {% csrf_token %}
     <div id="selectdiv">
         <label>请选择图标类型</label><br>
         <select id="charttype" onchange="javascript:test('mune_x'+this.value)">
             <option value="1">变化趋势图</option>
             <option value="2">比例构成图</option>
         </select>
-        <select id="x1"  style="display:none" >
-            <option value="1">柱状图</option>
-            <option value="2">曲线图</option>
+        <select id="x1" name='charttype'>
+            <option value="bar">柱状图</option>
+            <option value="line">曲线图</option>
         </select>
-        <select id="x2"  style="display:none" >
+        <select id="x2" name='charttype' style="display:none" >
             <option value="1">饼形图</option>
             <option value="2">南丁格尔图</option>
         </select>
     </div>
     <div id="timecon">
         <label>时间范围</label>
-        <select id="timesel">
-            <option value="year">年</option>
-            <option value="mouth">月</option>
-        </select><br>
-        <input type="month"><br>
-        <input type="month">
+        <input type="date" name="begintime">
+        <input type="date" name="endtime">
     </div>
-    <div id="x">
+    <div id="y1">
         <label>横坐标</label><br>
-        <label><input type="radio" name="xx">年</label><br>
-        <label><input type="radio" name="xx">月</label><br>
+        <label><input type="radio" name="x" value="year">年</label><br>
+        <label><input type="radio" name="x" value="month">月</label><br>
+        <label><input type="radio" name="x" value="accidenttype">事故类型</label><br>
+    </div>
+    <div id="z1">
+        <label>纵坐标</label><br>
+        <label><input type="checkbox" name="y" value="amount">事故数量</label><br>
+        <label><input type="checkbox" name="y" value="loss">经济损失</label><br>
+        <label><input type="checkbox" name="y" value="deaths">死亡人数</label><br>
+    </div>
+    <div id="p1" style="display:none">
+        <label>请选择</label><br>
         <label><input type="radio" name="xx">事故类型</label><br>
         <label><input type="radio" name="xx">事故性质</label><br>
     </div>
-    <div id="y">
-        <label>纵坐标</label><br>
-        <label><input type="checkbox">经济损失</label><br>
-        <label><input type="checkbox">死亡人数</label><br>
-        <label><input type="checkbox">百万吨死亡率</label><br>
-    </div>
+    <input type="submit" value="确定">
+    </form>
 </div>
 </div>
 <div id="serviceright"></div>
@@ -50,37 +54,100 @@ function test(Names){
     for(var i=1;i<3;i++){
         var tempname="mune_x"+i
         var selectname="x"+i
+        var xname="y"+i
+        var yname="z"+i
+        var pname="p"+i
         if(Names==tempname){
             sel=document.getElementById(selectname)
             sel.style.display='';
+            xn=document.getElementById(xname);
+           !!xn && (xn.style.display='');
+            yn=document.getElementById(yname)
+            yn.style.display='';
+            pn=document.getElementById(pname)
+            pn.style.display='none';
+            
         }
         else{
             sel=document.getElementById(selectname)
             sel.style.display='none';
+            xn=document.getElementById(xname)
+            xn.style.display='none';
+            yn=document.getElementById(yname)
+            yn.style.display='none';
+            pn=document.getElementById(pname)
+            pn.style.display='';
         }
     }
 }
+function ch(n){
+    var nn=n.substring(1,n.length-1)
+    var nnn=nn.replace(/u/g,'')
+    var nnnn=nnn.replace(/'/g,'')
+    var nnnnn=nnnn.split(",")
+    return nnnnn
+}
 // 基于准备好的dom，初始化echarts实例
 var myChart = echarts.init(document.getElementById('serviceright'));
-var tit="{{ example }}";
+var tit="曲线图";
 // 指定图表的配置项和数据
+var da2="{{ yy }}"  //纵坐标值
+var selam="{{ selamout }}"  //纵坐标的数量
+var xxam="{{ xxamout }}"    //
+var data1=da2.substring(1,da2.length-1).split(',')
+var data=[[],[],[]]
+for(i=0;i<selam;i++){
+    data[i]=data1.slice(i*xxam,xxam*(i+1))
+    }
+// for(i=0;i<selam;i++){
+//     alert(data[i])
+//     }
+// alert(da2[1:8])
+// var da3=da2.substring(1,da2.length-1).replace(/，\[/g,'')
+var yyy="{{ yyy | safe }}" //纵坐标死亡人数/
+var yyyy=ch(yyy)
+// alert(yyyy)
+var xx="{{ xx | safe}}"  //横坐标 年月事故类型
+var xxxx=ch(xx)
+// alert(typeof(xxxx))
+var xs=[]
+for(i=0;i<xxxx.length;i++)
+{
+    xs[i]=xxxx[i].replace(/\s+/g,"");
+}
+// var xxx=xxxxxx.split(",")
+var charttype=document.getElementById('x1');
+var selectedcharttype=charttype.options[charttype.selectedIndex].value;
+
 var option = {
     title: {
         text: tit
         },
     tooltip: {},
     legend: {
-        data:['销量']
+        data:yyyy
         },
     xAxis: {
-        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        data: xs//['瓦斯事故','顶板事故','机电事故','放炮事故','水灾事故','火灾事故','运输事故','其他事故']//xxxx
         },
     yAxis: {},
-    series: [{
-        name: '销量',
-        type: 'bar',
-        data: [5, 20, 36, 10, 10, 20]
-        }]
+    series: [
+        {
+            name: yyyy[0],
+            type: selectedcharttype,
+            data: data[0]
+        },
+                {
+            name: yyyy[1],
+            type: selectedcharttype,
+            data: data[1]
+        },
+                {
+            name: yyyy[2],
+            type: selectedcharttype,
+            data: data[2]
+        },
+        ]
         };
 
 // 使用刚指定的配置项和数据显示图表。
