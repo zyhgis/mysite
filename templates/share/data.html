@@ -32,83 +32,310 @@
        <div id="datamain" style="color:blue">
            <form action="{% url 'output' %}" method="POST">
                 {% csrf_token %}
-           <input type="submit" value="导出"><label><input name="database1" type="checkbox" value="group" onclick="if(this.checked==true) { checkAll('database'); } else { clearAll('database'); }"/>全选</label>
-           <input name="database1" type="checkbox" value="group" />
-           <div id="datamain" style="color:blue" onclick="document.all.child1.style.display=(document.all.child1.style.display =='none')?'':'none'" >煤矿集团</div>
-           <div id="child1" style="display:none">
-               {% if group_list %}
-               {% for group in group_list %}
-               <input name="group{{ forloop.counter }}" type="hidden" value="{{ group.groupname }}" />
-               <a href="#">{{ group.groupname }}</a><br>
-               {% endfor %}
-               {% else %}
-               <a href="#">No data</a><br>
-               {% endif %}
-            </div>
-            <input name="database2" type="checkbox" value="company" />
-            <div id="datamain" style="color:blue" onclick="document.all.child2.style.display=(document.all.child2.style.display =='none')?'':'none'" >煤矿企业</div>
-            <div id="child2" style="display:none">
+                <div>
+                    <input name="database1" type="checkbox" value="group" onclick="if(this.checked==true) { checkAll('database'); } else { clearAll('database'); }"/>全选</label>
+                </div>
+                <div>
+                    <div class="row">  
+                            <div class="col-md-1">
+                                <input id="input-1" name="database1" type="checkbox" value="group"/>
+                            </div>
+                            <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child1.style.display=(document.all.child1.style.display =='none')?'':'none'" >煤矿集团</div>
+                    </div>
+                    <div id="child1" style="display:none">
+                        {% if group_list %}
+                        <table  data-toggle="table"  
+                                data-click-to-select="true"
+                                data-search="true"
+                                data-show-refresh="true"
+                                data-show-toggle="true"
+                                data-show-columns="true"
+                                data-show-export="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="state" data-checkbox="true"></th>
+                                    <th>集团名称</th>
+                                    <th>控股类型</th>
+                                    <th>成立时间</th>
+                                    <th>注册类型</th>
+                                    <th>安全级别</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for group in group_list %}
+                                <tr>
+                                    <td class="table-responsive"></td>
+                                    <td>
+                                        <a href="#">{{ group.groupname }}</a>
+                                    </td>
+                                    <td>{{ group.konggutype }}</td>
+                                    <td>{{ group.foundingtime }}</td>
+                                    <td>{{ group.registertype }}</td>
+                                    <td>{{ group.saftyevelationtype }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <a href="#">No data</a><br>
+                        {% endif %}                      
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <input name="database2" type="checkbox" value="company"/>
+                        </div>
+                        <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child2.style.display=(document.all.child2.style.display =='none')?'':'none'" >煤矿企业</div>
+                    </div>
+                    <div id="child2" style="display:none">
                 {% if company_list %}
-                {% for company in company_list %}
-                <input name="company{{ forloop.counter }}" type="hidden" value="{{ company.companyname }}" />
-                <a href="#">{{ company.companyname }}</a><br>
-                {% endfor %}
+                 <table  data-toggle="table"  
+                                data-click-to-select="true"
+                                data-search="true"
+                                data-show-refresh="true"
+                                data-show-toggle="true"
+                                data-show-columns="true"
+                                data-show-export="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="state" data-checkbox="true"></th>
+                                    <th>企业名称</th>
+                                    <th>集团名称</th>
+                                    <th>地址</th>
+                                    <th>经度</th>
+                                    <th>纬度</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                           {% for company in company_list %}
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <a href="#">{{ company.groupname }}</a>
+                                    </td>
+                                    <td>{{ company.companyname }}</td>
+                                    <td>{{ company.location }}</td>
+                                    <td>{{ company.latitude }}</td>
+                                    <td>{{ company.longitude }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
                 {% else %}
                 <a href="#">No data</a><br>
                 {% endif %}
             </div>
-            <input name="database3" type="checkbox" value="accident" />
-            <div id="datamain" style="color:blue" onclick="document.all.child3.style.display=(document.all.child3.style.display =='none')?'':'none'" >煤矿事故</div>
+            </div>
+            <div class="row">
+               <div class="col-md-1"> 
+            <input name="database3" type="checkbox" value="accident"/>
+               </div>
+            <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child3.style.display=(document.all.child3.style.display =='none')?'':'none'" >煤矿事故</div>
+            </div>
             <div id="child3" style="display:none">
                 {% if accident_list %}
-                {% for accident in accident_list %}
-                <input name="accident{{ forloop.counter }}" type="hidden" value="{{ accident.accidentname }}" />
-                <a href="#">{{ accident.accidentname }}</a><br>
-                {% endfor %}
+                 <table  data-toggle="table"  
+                                data-click-to-select="true"
+                                data-search="true"
+                                data-show-refresh="true"
+                                data-show-toggle="true"
+                                data-show-columns="true"
+                                data-show-export="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="state" data-checkbox="true"></th>
+                                    <th>事故名称</th>
+                                    <th>事故日期</th>
+                                    <th>事故时间</th>
+                                    <th>煤矿企业</th>
+                                    <th>事故类型</th>
+                                    <th>死亡人数</th>
+                                    <th>经济损失</th>
+                                    <th>事故地点</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for accident in accident_list %}
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <a href="#">{{ accident.accidentname }}</a>
+                                    </td>
+                                    <td>{{ accident.date }}</td>
+                                    <td>{{ accident.time }}</td>
+                                    <td>{{ accident.companyname }}</td>
+                                    <td>{{ accident.accidenttype }}</td>
+                                    <td>{{ accident.deaths }}</td>
+                                    <td>{{ accident.economicloss }}</td>
+                                    <td>{{ accident.place }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
                 {% else %}
                 <a href="#">No data</a><br>
                 {% endif %}
             </div>
-            <input name="database4" type="checkbox" value="worker" />
-            <div id="datamain" style="color:blue" onclick="document.all.child4.style.display=(document.all.child4.style.display =='none')?'':'none'" >煤矿工人</div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+            <input name="database4" type="checkbox" value="worker"/>
+                </div>
+            <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child4.style.display=(document.all.child4.style.display =='none')?'':'none'" >煤矿工人</div>
+            </div>
             <div id="child4" style="display:none">
                 {% if worker_list %}
-                {% for worker in worker_list %}
-                <input name="worker{{ forloop.counter }}" type="hidden" value="{{ worker.ID }}" />
-                <a href="#">{{ worker.companyname }}</a><br>
-                {% endfor %}
+                 <table  data-toggle="table"  
+                                data-click-to-select="true"
+                                data-search="true"
+                                data-show-refresh="true"
+                                data-show-toggle="true"
+                                data-show-columns="true"
+                                data-show-export="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="state" data-checkbox="true"></th>
+                                    <th>姓名</th>
+                                    <th>性别</th>
+                                    <th>年龄</th>
+                                    <th>教育水平</th>
+                                    <th>从业经验</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for worker in worker_list %}
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <a href="#">{{ worker.ID }}</a>
+                                    </td>
+                                    <td>{{ worker.name }}</td>
+                                    <td>{{ worker.sex }}</td>
+                                    <td>{{ worker.age }}</td>
+                                    <td>{{ worker.education }}</td>
+                                    <td>{{ worker.experience }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
                 {% else %}
                 <a href="#">No data</a><br>
                 {% endif %}
             </div>
-            <input name="database5" type="checkbox" value="timeworker" />
-            <div id="datamain" style="color:blue" onclick="document.all.child5.style.display=(document.all.child5.style.display =='none')?'':'none'" >井下工人</div>
+            <div class="row">
+                <div class="col-md-1">
+            <input name="database5" type="checkbox" value="timeworker"/>
+                </div>
+            <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child5.style.display=(document.all.child5.style.display =='none')?'':'none'" >井下工人</div>
+                </div>
             <div id="child5" style="display:none">
                 {% if timeworker_list %}
-                {% for timeworker in timeworker_list %}
-                <input name="timeworker{{ forloop.counter }}" type="hidden" value="{{ timeworker.ID }}" />
-                <a href="#">{{ timeworker.companyname }}</a><br>
-                {% endfor %}
+                 <table  data-toggle="table"  
+                                data-click-to-select="true"
+                                data-search="true"
+                                data-show-refresh="true"
+                                data-show-toggle="true"
+                                data-show-columns="true"
+                                data-show-export="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="state" data-checkbox="true"></th>
+                                    <th>工号</th>
+                                    <th>事故名称</th>
+                                    <th>姓名</th>
+                                    <th>身体状况</th>
+                                    <th>一周工作时长</th>
+                                    <th>伤害状况</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               {% for timeworker in timeworker_list %}
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <a href="#">{{ timeworker.ID }}</a>
+                                    </td>
+                                    <td>{{ timeworker.accidentname }}</td>
+                                    <td>{{ timeworker.name }}</td>
+                                    <td>{{ timeworker.bodycondition }}</td>
+                                    <td>{{ timeworker.weekworktime }}</td>
+                                    <td>{{ timeworker.injury }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
                 {% else %}
                 <a href="#">No data</a><br>
                 {% endif %}
             </div>
-            <input name="database6" type="checkbox" value="timeindex" />
-            <div id="datamain" style="color:blue" onclick="document.all.child6.style.display=(document.all.child6.style.display =='none')?'':'none'" >井下参数</div>
+            <div class="row">
+                <div class="col-md-1">
+            <input name="database6" type="checkbox" value="timeindex"/>
+                </div>
+            <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child6.style.display=(document.all.child6.style.display =='none')?'':'none'" >井下参数</div>
+            </div>
             <div id="child6" style="display:none">
                 {% if timeindex_list %}
+                 <table  data-toggle="table"  
+                                data-click-to-select="true"
+                                data-search="true"
+                                data-show-refresh="true"
+                                data-show-toggle="true"
+                                data-show-columns="true"
+                                data-show-export="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="state" data-checkbox="true"></th>
+                                    <th>煤矿名称</th>
+                                    <th>瓦斯浓度</th>
+                                    <th>粉尘浓度</th>
+                                    <th>温度</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
                 {% for timeindex in timeindex_list %}
-                <input name="timeindex{{ forloop.counter }}" type="hidden" value="{{ timeindex.companyname }}" />
-                <a href="#">{{ timeindex.companyname }}</a><br>
-                {% endfor %}
+                <tr>
+                                    <td></td>
+                                    <td>
+                                        <a href="#">{{ timeworker.ID }}</a>
+                                    </td>
+                                    <td>{{ timeworker.accidentname }}</td>
+                                    <td>{{ timeworker.name }}</td>
+                                    <td>{{ timeworker.bodycondition }}</td>
+                                    <td>{{ timeworker.weekworktime }}</td>
+                                    <td>{{ timeworker.injury }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
                 {% else %}
                 <a href="#">No data</a><br>
                 {% endif %}
             </div>
-            <input name="database7" type="checkbox" value="equipment" />
-            <div id="datamain" style="color:blue" onclick="document.all.child7.style.display=(document.all.child7.style.display =='none')?'':'none'" >煤矿装备</div>
+            <div class="row">
+                <div class="col-md-1">
+
+            <input name="database7" type="checkbox" value="equipment"/>
+                </div>
+            <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child7.style.display=(document.all.child7.style.display =='none')?'':'none'" >煤矿装备</div>
+            </div>
             <div id="child7" style="display:none">
                 {% if equipment_list %}
+                 <table  data-toggle="table"  
+                                data-click-to-select="true"
+                                data-search="true"
+                                data-show-refresh="true"
+                                data-show-toggle="true"
+                                data-show-columns="true"
+                                data-show-export="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="state" data-checkbox="true"></th>
+                                    <th>装备编号</th>
+                                    <th>装备名称</th>
+                                    <th>生产地</th>
+                                    <th>使用年限</th>
+                                    <th>生产厂家</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                 {% for equipment in equipment_list %}
                 <input name="equipment{{ forloop.counter }}" type="hidden" value="{{ equipment.name }}"/>
                 <a href="#">{{ equipment.name }}</a><br>
@@ -117,9 +344,10 @@
                  <a href="#">No data</a><br>
                 {% endif %}
             </div>
+                 <input class="btn btn-primary" type="submit" value="导出"><label>
             </form>
         </div>
-    </div>  
+     
     <div id="sidebar"  class="col-md-2">
        <div id="info" class="top">
            <p>最新事故</p>
@@ -140,6 +368,13 @@
     </div>
     </div>
     <script type="text/javascript">
+    $(document).ready(function () {
+        $('input-1').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    });
     function clearAll(name)
     {
         var el = document.getElementsByTagName('input');
@@ -169,15 +404,15 @@
         var len = el.length;
         for(var i=1; i<len; i++)
         {
-            alert("first_if")
+            //alert("first_if")
             if (el[i].type=="checkbox")
             {
-                alert(el[i].name.substring(0,8))
+                //alert(el[i].name.substring(0,8))
                 if(name=="accidenttype")
                 {
                     if (el[i].name.substring(0,8)=="accident")
                     {
-                        alert("third_if")
+                        //alert("third_if")
                         el[i].checked = true;
                     }
                 }

@@ -1,6 +1,7 @@
 {% extends "share/base.html" %}
 {% load staticfiles %}
 {% block content %}
+
 <div id="maincontent" class="row">
 <div  class="col-md-10">
   <div id="map">
@@ -12,25 +13,28 @@
   </div>
 </div>
 <div id="sidebar" class="col-md-2">
-       <div id="info" class="top"></div>
+       <!--<div id="info" class="top"></div>-->
        <div class="middle">
+         <label>请输入地名，获得经纬度</label>
          <form action="{% url 'tolalo' %}" method="POST">
             {% csrf_token %}
-           <input type="text" name="location">
-           <input type="submit" value="确定">
+           <input class="form-control" type="text" name="location">
+           <input class="btn btn-primary"  type="submit" value="确定">
            </form>
+           <label>添加事故点</label>
          <form action="{% url 'tokml' %}" method="POST">
             {% csrf_token %}
-            <input type="text" name="latitude" value="{{ latitude }}">
-            <input type="text" name="longitude" value="{{ longitude }}">
-            <input type="submit" value="确定">
+            <input  class="form-control" type="text" name="latitude" value="{{ latitude }}">
+            <input  class="form-control" type="text" name="longitude" value="{{ longitude }}">
+            <input class="btn btn-primary"  type="submit" value="确定">
          </form>
        </div>
-       <div class="buttom">
+      <div class="buttom">
+         <div id="info">No countries selected</div>
           <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{uf.as_p}}
-            <input type="submit" value="上传">
+            <input  class="btn btn-primary"  type="submit" value="上传文件">
           </form>
        </div>
 </div>

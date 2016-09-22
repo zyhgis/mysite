@@ -8,15 +8,15 @@
     {% csrf_token %}
     <div id="selectdiv">
         <label>请选择图标类型</label><br>
-        <select id="charttype" onchange="javascript:test('mune_x'+this.value)">
+        <select class="selectpicker" id="charttype" onchange="javascript:test('mune_x'+this.value)">
             <option value="1">变化趋势图</option>
             <option value="2">比例构成图</option>
         </select>
-        <select id="x1" name='charttype'>
+        <select class="selectpicker" id="x1" name='charttype'>
             <option value="bar">柱状图</option>
             <option value="line">曲线图</option>
         </select>
-        <select id="x2" name='charttype' style="display:none" >
+        <select class="selectpicker" id="x2" name='charttype' style="display:none" >
             <option value="1">饼形图</option>
             <option value="2">南丁格尔图</option>
         </select>
@@ -50,6 +50,11 @@
 <div id="serviceright"></div>
 </div>
 <script type="text/javascript">
+//$('.selectpicker').selectpicker({
+  //style: 'btn-info',
+ // size: 4
+//});
+
 function test(Names){
     for(var i=1;i<3;i++){
         var tempname="mune_x"+i
