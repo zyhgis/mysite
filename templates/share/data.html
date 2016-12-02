@@ -2,45 +2,91 @@
 {% load staticfiles %}
 {% block content %}
 <div id="main" class="row">
-    <div id="leftbar"  class="col-md-2">
+    <div id="leftbar"  class="col-md-3">
         <div>
             <p>查询</p>
         </div>
         <form action="{% url 'query' %}" method="POST">
             {% csrf_token %}
-            <div>煤矿名称<input type="text" name="companyname"></div>
-            <div>事故类型</div>
-            <label><input name="allaccidenttype" type="checkbox" value="all" onclick="if(this.checked==true) { checkAll('accidenttype'); } else { clearAll('accidenttype'); }"/>全选</label>
-            <label><input name="accidenttype1" type="checkbox" value="gas" />瓦斯事故</label>
-            <label><input name="accidenttype2" type="checkbox" value="roof" />顶板事故</label>
-            <label><input name="accidenttype3" type="checkbox" value="shoot" />放炮事故</label>
-            <label><input name="accidenttype4" type="checkbox" value="elec" />机电事故</label>
-            <label><input name="accidenttype5" type="checkbox" value="flood" />水灾事故</label>
-            <label><input name="accidenttype6" type="checkbox" value="fire" />火灾事故</label>
-            <label><input name="accidenttype7" type="checkbox" value="traf" />运输事故</label>
-            <label><input name="accidenttype8" type="checkbox" value="other" />其它事故</label>
-            <div>死亡人数</div>
-            <p>大于</p><input name="moredeaths" type="text"/>
-            <p>小于</p><input name="lessdeaths" type="text"/>
-            <div>时间范围</div>
-            <p>从</p><input name="begin" type="date"/>
-            <p>到</p><input name="end" type="date"/>
-            <div><input class="btn btn-primary" name="sub" type="submit" value="确定"/></div>
+
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">煤矿名称</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="companyname">
+            </div>
+            <!--<div>煤矿名称<input class="form-control" type="text" name="companyname"></div>-->
+            <!--<div>事故类型</div>-->
+            <div class="form-group">
+                <label for="exampleInputEmail1">事故类型:</label>
+                <label><input name="allaccidenttype" type="checkbox" value="all" onclick="if(this.checked==true) { checkAll('accidenttype'); } else { clearAll('accidenttype'); }"/>全选</label>
+                <label><input name="accidenttype1" type="checkbox" value="gas" />瓦斯事故</label>
+                <label><input name="accidenttype2" type="checkbox" value="roof" />顶板事故</label>
+                <label><input name="accidenttype3" type="checkbox" value="shoot" />放炮事故</label>
+                <label><input name="accidenttype4" type="checkbox" value="elec" />机电事故</label>
+                <label><input name="accidenttype5" type="checkbox" value="flood" />水灾事故</label>
+                <label><input name="accidenttype6" type="checkbox" value="fire" />火灾事故</label>
+                <label><input name="accidenttype7" type="checkbox" value="traf" />运输事故</label>
+                <label><input name="accidenttype8" type="checkbox" value="other" />其它事故</label>
+            </div>
+             <label for="exampleInputEmail1">死亡人数</label>
+            <!--<div>死亡人数</div>-->
+            <div class="form-group">
+                <label class="col-md-4 control-label">大于</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-md-4 control-label">小于</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control"  placeholder="Email">
+            </div>
+            </div>
+            <!--<p>大于</p><input class="form-control" name="moredeaths" type="text"/>-->
+            <!--<p>小于</p><input class="form-control" name="lessdeaths" type="text"/>-->
+            <div class="form-group">
+                <label for="exampleInputEmail1">时间范围</label>
+                <!--<div>时间范围</div>-->
+                <!--<div class="input-append date form_datetime">
+                <input size="16" type="text" value="" readonly>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>-->
+            <div class="form-group">
+                <label class="col-md-4 control-label">从</label>
+                <input class="col-md-8" name="begin" type="date"/>
+            </div>
+            <div class="form-group">
+                 <label class="col-md-4 control-label">到</label>
+                 <input class="col-md-8" name="end" type="date"/>
+            </div>
+            <div class="form-group"><input class="btn btn-primary" name="sub" type="submit" value="确定"/></div>
+              </div>
         </form>
     </div> 
-    <div id="center" class="col-md-8">
-       <div id="datamain" style="color:blue">
+    <div id="center" class="col-md-7">
+       <div id="datamain2" >
            <form action="{% url 'output' %}" method="POST">
                 {% csrf_token %}
                 <div>
-                    <input name="database1" type="checkbox" value="group" onclick="if(this.checked==true) { checkAll('database'); } else { clearAll('database'); }"/>全选</label>
+                    <div class="row tablename" style="background:white">  
+                        <div>
+                    <div class="col-md-4"> 
+                 <label><input name="database1" type="checkbox" value="group" onclick="if(this.checked==true) { checkAll('database'); } else { clearAll('database'); }"/>全选</label>
+                    </div>
+                    <div class="col-md-8" style="margin-top: -8px;">
+                   <input class="btn btn-primary" type="submit" value="导出">
+                       </div>
+                </div>
+                </div>
                 </div>
                 <div>
-                    <div class="row">  
+                    <div class="row tablename tablename1">  
+                        <div class="tablenamenext">
                             <div class="col-md-1">
                                 <input id="input-1" name="database1" type="checkbox" value="group"/>
                             </div>
-                            <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child1.style.display=(document.all.child1.style.display =='none')?'':'none'" >煤矿集团</div>
+                            <div class="col-md-2" id="datamain"  onclick="document.all.child1.style.display=(document.all.child1.style.display =='none')?'':'none'" >煤矿集团</div>
+                    </div>
                     </div>
                     <div id="child1" style="display:none">
                         {% if group_list %}
@@ -82,11 +128,13 @@
                     </div>
                 </div>
                 <div>
-                    <div class="row">
+                    <div class="row tablename tablename2">
+                         <div class="tablenamenext">
                         <div class="col-md-1">
                             <input name="database2" type="checkbox" value="company"/>
                         </div>
-                        <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child2.style.display=(document.all.child2.style.display =='none')?'':'none'" >煤矿企业</div>
+                        <div class="col-md-2" id="datamain" onclick="document.all.child2.style.display=(document.all.child2.style.display =='none')?'':'none'" >煤矿企业</div>
+                    </div>
                     </div>
                     <div id="child2" style="display:none">
                 {% if company_list %}
@@ -126,11 +174,13 @@
                 {% endif %}
             </div>
             </div>
-            <div class="row">
+            <div class="row tablename tablename1">
+                 <div class="tablenamenext">
                <div class="col-md-1"> 
             <input name="database3" type="checkbox" value="accident"/>
                </div>
-            <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child3.style.display=(document.all.child3.style.display =='none')?'':'none'" >煤矿事故</div>
+            <div class="col-md-2" id="datamain" onclick="document.all.child3.style.display=(document.all.child3.style.display =='none')?'':'none'" >煤矿事故</div>
+            </div>
             </div>
             <div id="child3" style="display:none">
                 {% if accident_list %}
@@ -176,11 +226,13 @@
                 {% endif %}
             </div>
             </div>
-            <div class="row">
+            <div class="row tablename tablename2">
+                 <div class="tablenamenext">
                 <div class="col-md-1">
             <input name="database4" type="checkbox" value="worker"/>
                 </div>
-            <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child4.style.display=(document.all.child4.style.display =='none')?'':'none'" >煤矿工人</div>
+            <div class="col-md-2" id="datamain" onclick="document.all.child4.style.display=(document.all.child4.style.display =='none')?'':'none'" >煤矿工人</div>
+            </div>
             </div>
             <div id="child4" style="display:none">
                 {% if worker_list %}
@@ -220,12 +272,14 @@
                 <a href="#">No data</a><br>
                 {% endif %}
             </div>
-            <div class="row">
+            <div class="row tablename tablename1">
+                 <div class="tablenamenext">
                 <div class="col-md-1">
             <input name="database5" type="checkbox" value="timeworker"/>
                 </div>
-            <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child5.style.display=(document.all.child5.style.display =='none')?'':'none'" >井下工人</div>
+            <div class="col-md-2" id="datamain" onclick="document.all.child5.style.display=(document.all.child5.style.display =='none')?'':'none'" >井下工人</div>
                 </div>
+            </div>
             <div id="child5" style="display:none">
                 {% if timeworker_list %}
                  <table  data-toggle="table"  
@@ -265,11 +319,13 @@
                 <a href="#">No data</a><br>
                 {% endif %}
             </div>
-            <div class="row">
+            <div class="row tablename tablename2">
+                 <div class="tablenamenext">
                 <div class="col-md-1">
             <input name="database6" type="checkbox" value="timeindex"/>
                 </div>
-            <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child6.style.display=(document.all.child6.style.display =='none')?'':'none'" >井下参数</div>
+            <div class="col-md-2" id="datamain" onclick="document.all.child6.style.display=(document.all.child6.style.display =='none')?'':'none'" >井下参数</div>
+            </div>
             </div>
             <div id="child6" style="display:none">
                 {% if timeindex_list %}
@@ -309,12 +365,14 @@
                 <a href="#">No data</a><br>
                 {% endif %}
             </div>
-            <div class="row">
+            <div class="row tablename tablename1">
+                 <div class="tablenamenext">
                 <div class="col-md-1">
 
             <input name="database7" type="checkbox" value="equipment"/>
                 </div>
-            <div class="col-md-2" id="datamain" style="color:blue" onclick="document.all.child7.style.display=(document.all.child7.style.display =='none')?'':'none'" >煤矿装备</div>
+            <div class="col-md-2" id="datamain" onclick="document.all.child7.style.display=(document.all.child7.style.display =='none')?'':'none'" >煤矿装备</div>
+            </div>
             </div>
             <div id="child7" style="display:none">
                 {% if equipment_list %}
@@ -344,13 +402,14 @@
                  <a href="#">No data</a><br>
                 {% endif %}
             </div>
-                 <input class="btn btn-primary" type="submit" value="导出"><label>
+             
             </form>
         </div>
      
     <div id="sidebar"  class="col-md-2">
-       <div id="info" class="top">
-           <p>最新事故</p>
+       <div class="top">
+           <div class="col-md-12">
+              <label for="exampleInputEmail1">最新事故</label>
            {% if last_accident_list %}
            {% for accident in last_accident_list %}
            <p>{{ accident.accidentname }}</p>
@@ -358,16 +417,30 @@
            {% else %}
            <p>数据获取失败</p>
            {% endif %}
+           </div>
        </div>
        <div class="middle">
-           <p>最新数据</p>
+           <div class="col-md-12">
+                <label for="exampleInputEmail1">最新数据</label>
+           </div>
        </div>
        <div class="buttom">
-           <p>最热数据</p>
+           <div class="col-md-12">
+               <label for="exampleInputEmail1">最热数据</label>
+           </div>
        </div>
     </div>
     </div>
+    <script type = 'text/javascript' src="{% static 'bootstrap/js/bootstrap-datetimepicker.min.js' %}"></script>
     <script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        format: "dd MM yyyy - hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        pickerPosition: "bottom-left"
+    });
+
+
     $(document).ready(function () {
         $('input-1').iCheck({
             checkboxClass: 'icheckbox_square-blue',

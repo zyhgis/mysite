@@ -3,15 +3,14 @@
 {% block content %}
 
 <div id="maincontent" class="row">
-<div  class="col-md-10">
-  <div id="map">
+  <div id="map"  class="col-md-10">
     <div id="popup" class="ol-popup">
       <div id="popup-content"></div>
       <button id="popup-closer" class="ol-popup-closer">X</button>
       <div id="fname"></div>
     </div> 
   </div>
-</div>
+
 <div id="sidebar" class="col-md-2">
        <!--<div id="info" class="top"></div>-->
        <div class="middle">
@@ -31,11 +30,11 @@
        </div>
       <div class="buttom">
          <div id="info">No countries selected</div>
-          <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
+          <!--<form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{uf.as_p}}
             <input  class="btn btn-primary"  type="submit" value="上传文件">
-          </form>
+          </form>-->
        </div>
 </div>
 </div>
