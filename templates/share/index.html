@@ -3,17 +3,21 @@
 {% block content %}
 
 <div id="maincontent" class="row">
-  <div id="map"  class="col-md-10">
+  <div  class="col-md-9">
+  <div id="map">
     <div id="popup" class="ol-popup">
       <div id="popup-content"></div>
       <button id="popup-closer" class="ol-popup-closer">X</button>
       <div id="fname"></div>
     </div> 
   </div>
-
-<div id="sidebar" class="col-md-2">
+  <div>
+         最近十次煤矿事故分布
+       </div>
+  </div>
+<div id="sidebar" class="col-md-3">
        <!--<div id="info" class="top"></div>-->
-       <div class="middle">
+       <!--<div class="middle">
          <label>请输入地名，获得经纬度</label>
          <form action="{% url 'tolalo' %}" method="POST">
             {% csrf_token %}
@@ -27,16 +31,85 @@
             <input  class="form-control" type="text" name="longitude" value="{{ longitude }}">
             <input class="btn btn-primary"  type="submit" value="确定">
          </form>
+       </div>-->
+       <div class="row">
+        <div class="title">
+            <p>历史查询</p>
+        </div>
        </div>
-      <div class="buttom">
+        <form action="{% url 'query' %}" method="POST" class="form-horizontal" >
+            {% csrf_token %}
+            <div class="row">
+            <div class="form-group">
+                <label class="col-md-4 control-label">开始时间</label>
+                <input class="col-md-8" name="begin" type="date"/>
+            </div>
+            <div class="form-group">
+                 <label class="col-md-4 control-label">结束时间</label>
+                 <input class="col-md-8" name="end" type="date"/>
+            </div>
+            </div>
+            <div>
+              <label class="col-md-4 control-label">位置</label>
+            <select class="selectpicker col-md-8">
+              <option>Mustard</option>
+              <option>Ketchup</option>
+              <option>Relish</option>
+            </select>
+
+            </div>
+            <!--<div class="form-group">
+                <label for="exampleInputEmail1">煤矿名称</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="companyname">
+            </div>-->
+            <!--<div>煤矿名称<input class="form-control" type="text" name="companyname"></div>-->
+            <!--<div>事故类型</div>-->
+            <div class="row">
+                <label for="exampleInputEmail1">事故类型:</label>
+                <label><input name="allaccidenttype" type="checkbox" value="all" onclick="if(this.checked==true) { checkAll('accidenttype'); } else { clearAll('accidenttype'); }"/>全选</label>
+               <div class="form-group">
+                <label><input name="accidenttype1" type="checkbox" value="gas" />瓦斯事故</label>
+                <label><input name="accidenttype2" type="checkbox" value="roof" />顶板事故</label>
+                
+                <label><input name="accidenttype3" type="checkbox" value="shoot" />放炮事故</label>
+                </div>
+               <div class="form-group"> 
+                <label><input name="accidenttype4" type="checkbox" value="elec" />机电事故</label>
+               
+                <label><input name="accidenttype5" type="checkbox" value="flood" />水灾事故</label>
+                <label><input name="accidenttype6" type="checkbox" value="fire" />火灾事故</label>
+                </div>
+               <div class="form-group"> 
+                <label><input name="accidenttype7" type="checkbox" value="traf" />运输事故</label>
+                <label><input name="accidenttype8" type="checkbox" value="other" />其它事故</label>
+            </div>
+            </div>
+             <label for="exampleInputEmail1">死亡人数</label>
+            <!--<div>死亡人数</div>-->
+            <div class="form-group">
+                <label class="col-md-4 control-label">大于</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" placeholder="Email">
+                </div>
+                <label  class="col-md-4 control-label">小于</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control"  placeholder="Email">
+            </div>
+            </div>
+            <!--<p>大于</p><input class="form-control" name="moredeaths" type="text"/>-->
+            <!--<p>小于</p><input class="form-control" name="lessdeaths" type="text"/>-->
+<div class="form-group"><input class="btn btn-primary" name="sub" type="submit" value="确定"/></div>
+        </form>
+    </div> 
+      <!--<div class="buttom">
          <div id="info">No countries selected</div>
           <!--<form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{uf.as_p}}
             <input  class="btn btn-primary"  type="submit" value="上传文件">
           </form>-->
-       </div>
-</div>
+       </div>-->
+<!--</div>-->
 </div>
 <!--<div class="news">
       <div class="accident-news">
