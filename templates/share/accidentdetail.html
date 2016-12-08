@@ -1,0 +1,77 @@
+{% extends "share/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<div>
+	{% for accident in last_accident_list %}
+
+		    {% if forloop.counter0|divisibleby:2%}
+		    <a class="list-group-item list-group-item-success">{{ accident.detail }}</a>
+			{% else %}
+			<a class="list-group-item list-group-item-info">{{ accident.detail }}</a>
+			{% endif %}
+           {% endfor %}
+</div>
+<div class="tabbable" id="tabs-773496">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="#panel-jbxi" data-toggle="tab">事故信息</a>
+					</li>
+					<li>
+						<a href="#panel-mkxx" data-toggle="tab">煤矿信息</a>
+					</li>
+					<li>
+						<a href="#panel-grxx" data-toggle="tab">工人信息</a>
+					</li>
+					<li>
+						<a href="#panel-sbxx" data-toggle="tab">设备信息</a>
+					</li>
+					<li>
+						<a href="#panel-glxx" data-toggle="tab">管理信息</a>
+					</li>
+					<li>
+						<a href="#panel-hjxx" data-toggle="tab">环境信息</a>
+					</li>
+					<li>
+						<a href="#panel-sgzj" data-toggle="tab">事故总结</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="panel-jbxi">
+						<p>
+							基本信息
+						</p>
+					</div>
+					<div class="tab-pane" id="panel-mkxx">
+						<p>
+							煤矿信息
+						</p>
+					</div>
+					<div class="tab-pane" id="panel-grxx">
+						<p>
+							工人信息
+						</p>
+					</div>
+					<div class="tab-pane" id="panel-sbxx">
+						<p>
+							设备信息
+						</p>
+					</div>
+					<div class="tab-pane" id="panel-glxx">
+						<p>
+							管理信息
+						</p>
+					</div>
+					<div class="tab-pane" id="panel-hjxx">
+						<p>
+							环境信息
+						</p>
+					</div>
+					<div class="tab-pane" id="panel-sgzj">
+						<p>
+						事故总结
+						</p>
+					</div>
+
+				</div>
+			</div>
+{% endblock %}

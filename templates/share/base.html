@@ -42,9 +42,11 @@
       </div>
       <div class="menu">
            <ul><li><a href="{% url 'index' %}">首页</a></li></ul>
-           <ul><li><a href="{% url 'data' %}" target="_blank">数据</a></li></ul>
-           <ul><li><a href="{% url 'service' %}" target="_blank">服务</a></li></ul>
-           <ul><li><a href="http://www.igsnrr.ac.cn/" target="_blank">动态</a></li></ul>    
+           <ul><li><a href="{% url 'accident' %}" target="_blank">事故专题</a></li></ul>
+           <!--<ul><li><a href="{% url 'service' %}" target="_blank">煤矿专题</a></li></ul>-->
+           <ul><li><a href="http://www.igsnrr.ac.cn/" target="_blank">快捷查询</a></li></ul>
+           <ul><li><a href="http://www.igsnrr.ac.cn/" target="_blank">分析服务</a></li></ul>
+           <ul><li><a href="{% url 'zyh' %}" target="_blank">事故添加</a></li></ul>       
       </div>
         {% block content %}{% endblock %}  
     <div class="footer">
@@ -70,7 +72,15 @@
 <script type = 'text/javascript' src="{% static 'bootstrap/js/bootstrap-table-zh-CN.js' %}"></script>
 <!--<script type = 'text/javascript' src="{% static 'js/Checkbox/checkbox.min.js' %}"></script>-->
 <script src="http://openlayers.org/en/v3.12.1/build/ol.js"></script>
-<script src="{% static 'js/ol3-layerswitcher.js' %}" type="text/javascript"></script>   
+<script src="{% static 'js/ol3-layerswitcher.js' %}" type="text/javascript"></script> 
+<script>
+  // $(document).ready(function(){
+  //   alert("")
+  // htmlobj=$.ajax({url:"{% url 'exc' %}",async:false});
+  // });
+
+  htmlobj=$.ajax({url:"{% url 'exc' %}",async:false});
+</script>  
 <script src="{% static 'js/road2.js' %}" type="text/javascript"></script>
 </body>
 </html>

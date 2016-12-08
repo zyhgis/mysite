@@ -1,0 +1,20 @@
+{% extends "share/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<div class="list-group">
+
+  <a href="{% url 'accidentdetail' 1 %}" class="list-group-item">Dapibus ac facilisis in</a>
+  {% if last_accident_list %}
+           {% for accident in last_accident_list %}
+
+		    {% if forloop.counter0|divisibleby:2%}
+		    <a class="list-group-item list-group-item-success">{{ accident.detail }}</a>
+			{% else %}
+			<a class="list-group-item list-group-item-info">{{ accident.detail }}</a>
+			{% endif %}
+           {% endfor %}
+           {% else %}
+           <p>数据获取失败</p>
+           {% endif %}
+</div>
+{% endblock %}
